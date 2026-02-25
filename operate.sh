@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Trivy'nin yolunu Bash ortamına kalıcı olarak ekliyoruz
+export PATH=$PATH:/c/DEVELOPER/tools
 COMMAND=$1
 
 # Eğer argüman 'baslat' ise...
@@ -21,14 +23,31 @@ elif [ "$COMMAND" == "logs" ]; then
     docker-compose logs backend-api
 
 elif [ "$COMMAND" == "backup" ]; then
-    echo "📦 Veritabanı yedeği alınıyor..."
-    docker exec sec-mongodb mongodump --archive --gzip > db_backup_$(date +%Y%m%d_%H%M).gz
+    echo "--- Şifreli Yedekleme Başlatılıyor ---"
+    mkdir -p ./.secret_backups
+    TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+    
+    # 1. Önce veriyi al, sonra OpenSSL ile şifrele
+    # 'openssl enc -aes-256-cbc' komutu bir şifre isteyecek
+    docker exec sec-mongodb mongodump --archive --gzip --db bulletproof_db | \
+
+    MASTER_KEY=$(grep MASTER_KEY .env | cut -d '=' -f2)
+    docker exec sec-mongodb mongodump --archive --gzip --db bulletproof_db | \
+    openssl enc -aes-256-cbc -salt -pbkdf2 -iter 100000 \
+    -out ./.secret_backups/backup_$TIMESTAMP.gz.enc \
+    -pass pass:"$MASTER_KEY"
+
+    chmod 600 ./.secret_backups/*.enc
+    echo "✅ Şifreli yedek oluşturuldu: .secret_backups/backup_$TIMESTAMP.gz.enc"
+
+    find ./.secret_backups/ -name "*.gz" -type f -mtime +7 -delete
 
 elif [ "$COMMAND" == "scan" ]; then
     echo "🔍 Güvenlik taraması yapılıyor..."
 
-    if ! command -v trivy >/dev/null 2>&1; then
-        echo "❌ Trivy bulunamadı. Kurulum: https://trivy.dev/latest/getting-started/installation/"
+# Windows/Git Bash uyumluluğu için daha esnek bir kontrol
+    if ! trivy --version >/dev/null 2>&1; then
+        echo \"❌ Trivy komutu bulunamadi!\"
         exit 1
     fi
 

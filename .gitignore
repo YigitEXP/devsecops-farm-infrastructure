@@ -1,4 +1,5 @@
 trivy-reports/
+.secret_backups/
 *.gz
 *.txt
 .env
