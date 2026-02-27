@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { register } from '../services/registerService';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -42,12 +42,9 @@ const Register = () => {
         try {
             // DÜZELTME: URL'i temiz tut, sonuna bir şey ekleme. 
             // İkinci parametre olan nesne otomatik olarak JSON Body olur.
-            const response = await axios.post("http://localhost/api/register", { 
-                username, 
-                password 
-            });
+            const response = await register(username, password);
             
-            setMessage("✓ " + response.data.message);
+            setMessage("✓ " + response.message);
             setFormData({ username: '', password: '', confirmPassword: '' });
         } catch (error) {
             // Hata detayını konsolda görelim ki neyin eksik olduğunu anlayalım

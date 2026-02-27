@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { login } from '../services/authService';
 
 const Login = ({ onLoginSuccess }) => {
     const [username, setUsername] = useState('');
@@ -12,19 +13,9 @@ const Login = ({ onLoginSuccess }) => {
         e.preventDefault();
         setIsLoading(true);
         
-        const loginData = {
-            username: username.toLowerCase(),
-            password: password
-        };
-
         try {
-            const response = await axios.post("http://localhost/api/login", loginData, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            const token = response.data.access_token;
+            const response = await login(username, password);
+            const token = response.access_token;
             
             localStorage.setItem('token', token);
             onLoginSuccess(token);
