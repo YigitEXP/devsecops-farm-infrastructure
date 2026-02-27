@@ -19,7 +19,7 @@ case "$COMMAND" in
     "start")
         echo "🚀 Sistem ayağa kaldırılıyor.."
         docker-compose up -d --build
-        echo "✅ http://localhost:5173 adresinden erişebilirsiniz."
+        echo "✅ http://localhost adresinden erişebilirsiniz."
         ;;
     "stop")
         echo "🛑 Sistem durduruluyor..."
