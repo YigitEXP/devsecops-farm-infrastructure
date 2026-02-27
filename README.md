@@ -1,33 +1,24 @@
-# 🛡️ Fortified FARM Stack (My DevSecOps Journey)
+🛡️ Fortified FARM Stack: A DevSecOps Case Study
+Hi! I'm Yiğit Can Aktürk, a 2nd-year Computer Engineering student at Süleyman Demirel University. This project is my hands-on laboratory for exploring System Architecture and DevSecOps.
 
-Hi! Im a 2nd-year Computer Engineering student who is deeply interested in System Architecture and DevSecOps. This is my hands-on passion project. Instead of just building a standard "hello world" CRUD app, I wanted to build a secure, "Bulletproof" infrastructure using the FARM stack (FastAPI, React, MongoDB).
+🏗️ Architectural Blueprint
+I designed this infrastructure using Clean Architecture principles to ensure strict separation between the frontend, backend, and security proxy layers.
 
-Im still learning and exploring, but I tried my best to apply real enterprise security practices to solve common bottlenecks and OWASP vulnerabilities. 
+Nginx (The Shield): Acts as a Reverse Proxy, handling SSL termination (planned) and security headers (CSP, X-Frame, HSTS).
 
-## 🏗️ What I Built
+FastAPI (The Core): Managed with Pydantic for strict data validation and type safety.
 
-I separated the frontend, backend and proxy layers using Clean Architecture principles. Everything is containerized and orchestrated with Docker Compose so it works perfectly on any machine.
+Redis (The Gatekeeper): Implements rate-limiting to neutralize brute-force attacks.
 
-### 🔐 Security & DevSecOps Features
-- **Defeating Brute Force:** I added a **Redis** rate limiter to the FastAPI login and register endpoints. If a bot tries to spam the API, Redis blocks them with a 429 Too Many Requests error before they even touch MongoDB.
-- **Container Security:** I used multi-stage Docker builds with lightweight `alpine` images to reduce the attack surface. I also scan my containers with **Trivy** to catch CVEs.
-- **Offensive Testing:** I dont just write code, I attack it! I use **Grafana k6** to simulate DDoS/Load testing on my endpoints, and **OWASP ZAP** to scan for XSS, SQL injection and other vulnerabilities.
-- **Safe Routing:** I put an **Nginx** reverse proxy in front of the application. The backend is hidden inside a private Docker network (`app-network`).
-- **Data Validation:** Pydantic models on the backend ensure that bad JSON payloads are rejected immediately.
+Docker Orchestration: All services communicate within a private app-network, isolating the database and backend from direct public exposure.
 
-## 🚀 Tech Stack Used
+🚦 Smart Automation (operate.sh)
+I developed a custom Bash script to automate the entire DevSecOps lifecycle:
 
-* **Frontend:** React (Vite), Axios
-* **Backend:** FastAPI (Python), Pydantic, Redis
-* **Database:** MongoDB
-* **Infra:** Docker, Docker Compose, Nginx
-* **Testing & Auditing:** Trivy, OWASP ZAP, k6
+start / stop: Container orchestration.
 
-## 🚦 How to Run
+trivy-scan: Automated vulnerability scanning for Docker images.
 
-If you want to test this infrastructure on your machine:
+k6-test: Performance & Load testing with automatic dependency resolution.
 
-1. Clone the repo and go to the project folder
-2. Run the magic operational script:
-   ```bash
-   bash operate.sh start
+hard-start: Full system purge and no-cache rebuild for clean deployments.
