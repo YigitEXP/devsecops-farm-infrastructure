@@ -11,8 +11,6 @@ const Register = () => {
     const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
-    // TODO 1: HandleChange fonksiyonunu yaz. 
-    // Kullanıcı yazdıkça formData state'ini güncellemeli.
     const handleChange = (e) =>{
         const { name, value } = e.target;
         setFormData(prevState => ({
@@ -25,12 +23,12 @@ const Register = () => {
         e.preventDefault();
         
         if (formData.password !== formData.confirmPassword) {
-            setMessage("⚠ Şifreler eşleşmiyor!");
+            setMessage("⚠ Passwords don't match!");
             return;
         }
 
         if (formData.password.length < 8) {
-            setMessage("⚠ Şifre en az 8 karakter olmalıdır!");
+            setMessage("⚠ Password must be at least 8 characters!");
             return;
         }
         
@@ -48,8 +46,8 @@ const Register = () => {
             setFormData({ username: '', password: '', confirmPassword: '' });
         } catch (error) {
             // Hata detayını konsolda görelim ki neyin eksik olduğunu anlayalım
-            console.log("FastAPI Hata Detayı:", error.response?.data);
-            setMessage("⚠ " + (error.response?.data?.detail || "Kayıt hatası!"));
+            console.log("FastAPI Error Detail:", error.response?.data);
+            setMessage("⚠ " + (error.response?.data?.detail || "Registration fail"));
         } finally {
             setIsLoading(false);
         }
@@ -65,7 +63,7 @@ const Register = () => {
         <div className="auth-container">
             <div className="glass-card auth-card">
                 <h2 className="auth-title">
-                    <span>📝</span> Yeni Hesap
+                    <span>📝</span> New Account
                 </h2>
                 
                 <form onSubmit={handleSubmit} className="cyber-form">
@@ -82,7 +80,7 @@ const Register = () => {
                             autoComplete="username"
                         />
                         <label htmlFor="username" className="input-label">
-                            Kullanıcı Adı
+                            Username
                         </label>
                     </div>
                     
@@ -99,7 +97,7 @@ const Register = () => {
                             autoComplete="new-password"
                         />
                         <label htmlFor="password" className="input-label">
-                            Şifre (min. 8 karakter)
+                            Password (min. 8 characters)
                         </label>
                     </div>
                     
@@ -116,7 +114,7 @@ const Register = () => {
                             autoComplete="new-password"
                         />
                         <label htmlFor="confirmPassword" className="input-label">
-                            Şifre Tekrarı
+                            Confirm Password
                         </label>
                     </div>
                     
@@ -130,7 +128,7 @@ const Register = () => {
                                 <span></span><span></span><span></span>
                             </span>
                         ) : (
-                            '🔒 Kayıt Ol'
+                            '🔒 Register'
                         )}
                     </button>
                 </form>
@@ -142,7 +140,7 @@ const Register = () => {
                 )}
                 
                 <p className="auth-toggle">
-                    Zaten hesabınız var mı? <Link to="/">Giriş yapın</Link>
+                    Already have an account? <Link to="/">Login</Link>
                 </p>
             </div>
         </div>

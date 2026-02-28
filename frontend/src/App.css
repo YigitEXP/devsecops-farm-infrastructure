@@ -1,7 +1,19 @@
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Padding'in genişliği bozmasını engeller */
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0; /* Üstteki 2rem'lik boşluğu sildik */
   text-align: center;
 }
 

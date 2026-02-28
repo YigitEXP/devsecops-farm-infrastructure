@@ -46,7 +46,7 @@ const Profile = () => {
         <div className="cyber-loader">
           <span></span><span></span><span></span>
         </div>
-        <p>Profil yükleniyor...</p>
+        <p>Profile loading...</p>
       </div>
     );
   }
@@ -73,7 +73,7 @@ const Profile = () => {
           </div>
           <div className="profile-info">
             <h2>@{user.username}</h2>
-            <p>🔒 Güvenli Oturum Aktif</p>
+            <p>🔒 Secure Session Active</p>
           </div>
         </div>
       </div>
@@ -82,41 +82,41 @@ const Profile = () => {
       <div className="security-grid">
         <div className="security-item">
           <div className="security-icon">🛡️</div>
-          <div className="security-label">Kimlik Doğrulama</div>
+          <div className="security-label">Authentication</div>
           <div className="security-value">JWT Token</div>
         </div>
         
         <div className="security-item">
           <div className="security-icon">🔐</div>
-          <div className="security-label">Şifreleme</div>
+          <div className="security-label">Encryption</div>
           <div className="security-value">HS256</div>
         </div>
         
         <div className="security-item">
           <div className="security-icon">⚡</div>
           <div className="security-label">Rate Limit</div>
-          <div className="security-value">5/dk</div>
+          <div className="security-value">5/minute</div>
         </div>
         
         <div className="security-item">
           <div className="security-icon">📦</div>
-          <div className="security-label">Veritabanı</div>
+          <div className="security-label">Database</div>
           <div className="security-value">MongoDB</div>
         </div>
       </div>
 
       {/* Token Info */}
       <div className="token-section">
-        <h4 className="token-section-title">🔑 Token Bilgileri</h4>
+        <h4 className="token-section-title">🔑 Token Information</h4>
         <div className="token-display">
           <div className="token-display-row">
             <strong>Subject:</strong> {user.details?.sub || user.username}
           </div>
           <div className="token-display-row">
-            <strong>Son Kullanma:</strong> {formatExpiry(user.details?.exp)}
+            <strong>Expiry:</strong> {formatExpiry(user.details?.exp)}
           </div>
           <div className="token-display-row">
-            <strong>Algoritma:</strong> {user.details?.alg || 'HS256'}
+            <strong>Algorithm:</strong> {user.details?.alg || 'HS256'}
           </div>
         </div>
       </div>
@@ -124,13 +124,13 @@ const Profile = () => {
       {/* Raw Token Display */}
       <div className="glass-card token-card">
         <h4 className="token-card-title">
-          📄 Ham Token (İlk 50 karakter)
+          📄 Raw Token (First 50 Characters)
         </h4>
         <div className="token-display">
           {localStorage.getItem('token')?.substring(0, 50)}...
         </div>
         <p className="token-note">
-          Bu bilgiler doğrudan bulletproof Backend'den JWT doğrulaması ile geldi.
+          This information came directly from the bulletproof backend via JWT Validation
         </p>
       </div>
     </div>

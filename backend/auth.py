@@ -14,18 +14,15 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def get_password_hash(password):
-    # TODO: 'pwd_context' kullanarak şifreyi geri döndürülemez bir karma (hash) haline getir.
     return pwd_context.hash(password)
 
 def verify_password(plain_password, hashed_password):
-    # TODO: 'pwd_context' kullanarak girilen düz şifre ile veritabanındaki hash'i karşılaştır.
     return pwd_context.verify(plain_password, hashed_password)
 
 def create_access_token(data: dict):
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
-    # TODO: 'jwt' kütüphanesini kullanarak veriyi, anahtarı ve algoritmayı birleştirip token üret.
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 def decode_access_token(token: str):

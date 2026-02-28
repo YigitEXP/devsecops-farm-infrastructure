@@ -46,7 +46,7 @@ const Login = ({ onLoginSuccess }) => {
         <div className="auth-container">
             <div className="glass-card auth-card">
                 <h2 className="auth-title">
-                    <span>🔐</span> Sistem Girişi
+                    <span>🔐</span> System Login
                 </h2>
                 
                 <form onSubmit={handleSubmit} className="cyber-form">
@@ -62,7 +62,7 @@ const Login = ({ onLoginSuccess }) => {
                             autoComplete="username"
                         />
                         <label htmlFor="username" className="input-label">
-                            Kullanıcı Adı
+                            Username
                         </label>
                     </div>
                     
@@ -78,7 +78,7 @@ const Login = ({ onLoginSuccess }) => {
                             autoComplete="current-password"
                         />
                         <label htmlFor="password" className="input-label">
-                            Şifre
+                            Password
                         </label>
                     </div>
                     
@@ -92,7 +92,7 @@ const Login = ({ onLoginSuccess }) => {
                                 <span></span><span></span><span></span>
                             </span>
                         ) : (
-                            '🔓 Giriş Yap'
+                            '🔓 Login'
                         )}
                     </button>
                 </form>
@@ -104,7 +104,7 @@ const Login = ({ onLoginSuccess }) => {
                 )}
                 
                 <p className="auth-toggle">
-                    Hesabınız yok mu? <Link to="/register">Kayıt olun</Link>
+                    Are you new? <Link to="/register">Register now</Link>
                 </p>
             </div>
         </div>
