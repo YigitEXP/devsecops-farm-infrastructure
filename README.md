@@ -8,7 +8,7 @@ Hi there! I'm **Yiğit**, a 2nd-year Computer Engineering student at Süleyman D
 
 I didn't write every single line of this project alone in one night. To be honest, as a **19-year-old sophomore**, I hit some walls with complex **Nginx CSP headers** and **Docker network isolation**. 
 
-For efficiency and to speed up my learning process, I used **AI (Gemini)** as my mentor. We "fortified" some complex CSS layouts and Nginx configurations together. For me, the most important part was understanding *why* that code was there. **I remained the driver; AI was my co-pilot/navigator.** It showed me my mistakes, and I learned by fixing them.
+For efficiency and to speed up my learning process, I used **AI (Gemini)** as my mentor. We "fortified" some complex CSS layouts and Nginx configurations together. For me, the most important part was understanding *why* that code was there. **I remained the driver; AI was my copilot.** It showed me my mistakes, and I learned by fixing them.
 
 There are still some "roadblocks" (like sophisticated **XSS details**) that I haven't fully solved yet. I'll be closing those gaps with help from my **senior backend developer cousin** and my professors, because I believe engineering is a journey of continuous improvement!
 
